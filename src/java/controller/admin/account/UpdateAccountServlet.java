@@ -1,0 +1,78 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package controller.admin.account;
+
+import dal.AccountDAO;
+import dal.RoleDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Account;
+import model.Role;
+
+/**
+ *
+ * @author Vu Tuan Hai <HE176383>
+ */
+@WebServlet(name = "UpdateAccountServlet_1", urlPatterns = {"/UpdateAccountServlet_1"})
+public class UpdateAccountServlet extends HttpServlet {
+
+    AccountDAO ad = new AccountDAO();
+    RoleDAO rd = new RoleDAO();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("sid"));
+        List<Role> listR = rd.getAllRoles();
+
+        Account s = ad.getAccountByID(id);
+        request.setAttribute("s", s);
+        request.setAttribute("listR", listR);
+
+        request.getRequestDispatcher("admin/account/adminAccountUpdate.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Account ac = new Account();
+
+        ac.setFirstName(request.getParameter("txtFirstName"));
+        ac.setLastName(request.getParameter("txtLastName"));
+        ac.setGender(request.getParameter("gender").equals("male"));
+        ac.setEmail(request.getParameter("txtEmail"));
+        ac.setPassword(request.getParameter("txtPassword"));
+        ac.setDob(request.getParameter("dob"));
+        ac.setPhoneNumber(request.getParameter("txtPhone"));
+        ac.setAddress(request.getParameter("ttAddress"));
+        ac.setImg(request.getParameter("txtImg"));
+
+        Role r = rd.getRoleByID(Integer.parseInt(request.getParameter("slRole")));
+        ac.setRole(r);
+        ac.setAccountID(Integer.parseInt(request.getParameter("ida")));
+
+        RoleDAO rdao = new RoleDAO();
+        List<Role> roles = rdao.getAllRoles();
+        request.setAttribute("listR", roles);
+
+        PrintWriter out = response.getWriter();
+        out.println(ac);
+
+        ad.updateAccount(ac);
+        response.sendRedirect("listaccount");
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

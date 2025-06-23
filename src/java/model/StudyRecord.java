@@ -1,0 +1,81 @@
+package model;
+
+public class StudyRecord {
+
+    private int record_id;
+    private Class classID;
+    private Kindergartner kinder;
+    private int studyYear;
+    private boolean isGraduated;
+    private boolean isDroppedOut;  // ✅ thêm trường này
+
+    public StudyRecord() {
+    }
+
+    public StudyRecord(int record_id, Class classID, Kindergartner kinder, int studyYear, boolean isGraduated, boolean isDroppedOut) {
+        this.record_id = record_id;
+        this.classID = classID;
+        this.kinder = kinder;
+        this.studyYear = studyYear;
+        this.isGraduated = isGraduated;
+        this.isDroppedOut = isDroppedOut;
+    }
+
+    public StudyRecord(int record_id, Class classID, Kindergartner kinder, int studyYear) {
+        this.record_id = record_id;
+        this.classID = classID;
+        this.kinder = kinder;
+        this.studyYear = studyYear;
+        this.isGraduated = false;     // mặc định chưa tốt nghiệp
+        this.isDroppedOut = false;    // ✅ mặc định chưa thôi học
+    }
+
+    // Getter và Setter
+    public int getRecord_id() {
+        return record_id;
+    }
+
+    public void setRecord_id(int record_id) {
+        this.record_id = record_id;
+    }
+
+    public Class getClassID() {
+        return classID;
+    }
+
+    public void setClassID(Class classID) {
+        this.classID = classID;
+    }
+
+    public Kindergartner getKinder() {
+        return kinder;
+    }
+
+    public void setKinder(Kindergartner kinder) {
+        this.kinder = kinder;
+    }
+
+    public int getStudyYear() {
+        return studyYear;
+    }
+
+    public void setStudyYear(int studyYear) {
+        this.studyYear = studyYear;
+    }
+
+    public boolean isGraduated() {
+        return isGraduated;
+    }
+
+    public void setGraduated(boolean isGraduated) {
+        this.isGraduated = isGraduated;
+    }
+
+    public boolean isDroppedOut() {
+        return isDroppedOut;
+    }
+
+    public void setDroppedOut(boolean isDroppedOut) {
+        this.isDroppedOut = isDroppedOut;
+    }
+}
